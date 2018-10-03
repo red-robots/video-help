@@ -18,7 +18,7 @@ jQuery(document).ready(function(){
 				//customspin
 				jQuery('.custom_post_title').html( '' );
 				jQuery('.custom_post_content').html( '' );				
-				jQuery('.custom_post_video').html( '' );				
+				jQuery('.custom_post_video').find('.embed-container').html( '' );				
 			
 				jQuery('.lds-dual-ring').show()
 			},			
@@ -29,7 +29,7 @@ jQuery(document).ready(function(){
 				jQuery('.lds-dual-ring').hide()
 				jQuery('.custom_post_title').html( data.title );
 				jQuery('.custom_post_content').html( data.content );
-				jQuery('.custom_post_video').html( data.videoembed );
+				jQuery('.custom_post_video').find('.embed-container').html( data.videoembed );
 				
 			}
 		})				

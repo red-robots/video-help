@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Video Help
  * Plugin URI: http://codeable.io/
- * Description: BWV Admin
+ * Description: VH Admin
  * Version: 1.0.0 
  * Author: Orionk
  */
@@ -19,33 +19,33 @@ define( 'CUSTOM_VIDEO_PLUGIN_URI', plugin_dir_url( __FILE__ ));
 function create_videolink_cpt() {
 
 	$labels = array(
-		'name' => __( 'BWV Admin', 'Post Type General Name', 'videolinktextdomain' ),
-		'singular_name' => __( 'BWV Admin', 'Post Type Singular Name', 'videolinktextdomain' ),
-		'menu_name' => __( 'BWV Admin', 'videolinktextdomain' ),
-		'name_admin_bar' => __( 'BWV Admin', 'videolinktextdomain' ),
-		'archives' => __( 'BWV Admin Archives', 'videolinktextdomain' ),
-		'attributes' => __( 'BWV Admin Attributes', 'videolinktextdomain' ),
+		'name' => __( 'VH Admin', 'Post Type General Name', 'videolinktextdomain' ),
+		'singular_name' => __( 'VH Admin', 'Post Type Singular Name', 'videolinktextdomain' ),
+		'menu_name' => __( 'VH Admin', 'videolinktextdomain' ),
+		'name_admin_bar' => __( 'VH Admin', 'videolinktextdomain' ),
+		'archives' => __( 'VH Admin Archives', 'videolinktextdomain' ),
+		'attributes' => __( 'VH Admin Attributes', 'videolinktextdomain' ),
 		'parent_item_colon' => __( 'Parent video_link:', 'videolinktextdomain' ),
-		'all_items' => __( 'All BWV Admin', 'videolinktextdomain' ),
+		'all_items' => __( 'All VH Admin', 'videolinktextdomain' ),
 		'add_new_item' => __( 'Add new video', 'videolinktextdomain' ),
 		'add_new' => __( 'Add New', 'videolinktextdomain' ),
-		'new_item' => __( 'New BWV Admin', 'videolinktextdomain' ),
-		'edit_item' => __( 'Edit BWV Admin', 'videolinktextdomain' ),
-		'update_item' => __( 'Update BWV Admin', 'videolinktextdomain' ),
-		'view_item' => __( 'View BWV Admin', 'videolinktextdomain' ),
-		'view_items' => __( 'View BWV Admin', 'videolinktextdomain' ),
-		'search_items' => __( 'Search BWV Admin', 'videolinktextdomain' ),
+		'new_item' => __( 'New VH Admin', 'videolinktextdomain' ),
+		'edit_item' => __( 'Edit VH Admin', 'videolinktextdomain' ),
+		'update_item' => __( 'Update VH Admin', 'videolinktextdomain' ),
+		'view_item' => __( 'View VH Admin', 'videolinktextdomain' ),
+		'view_items' => __( 'View VH Admin', 'videolinktextdomain' ),
+		'search_items' => __( 'Search VH Admin', 'videolinktextdomain' ),
 		'not_found' => __( 'Not found', 'videolinktextdomain' ),
 		'not_found_in_trash' => __( 'Not found in Trash', 'videolinktextdomain' ),
 		'featured_image' => __( 'Featured Image', 'videolinktextdomain' ),
 		'set_featured_image' => __( 'Set featured image', 'videolinktextdomain' ),
 		'remove_featured_image' => __( 'Remove featured image', 'videolinktextdomain' ),
 		'use_featured_image' => __( 'Use as featured image', 'videolinktextdomain' ),
-		'insert_into_item' => __( 'Insert into BWV Admin', 'videolinktextdomain' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this BWV Admin', 'videolinktextdomain' ),
-		'items_list' => __( 'BWV Admin list', 'videolinktextdomain' ),
-		'items_list_navigation' => __( 'BWV Admin list navigation', 'videolinktextdomain' ),
-		'filter_items_list' => __( 'Filter BWV Admin list', 'videolinktextdomain' ),
+		'insert_into_item' => __( 'Insert into VH Admin', 'videolinktextdomain' ),
+		'uploaded_to_this_item' => __( 'Uploaded to this VH Admin', 'videolinktextdomain' ),
+		'items_list' => __( 'VH Admin list', 'videolinktextdomain' ),
+		'items_list_navigation' => __( 'VH Admin list navigation', 'videolinktextdomain' ),
+		'filter_items_list' => __( 'Filter VH Admin list', 'videolinktextdomain' ),
 	);
 	$args = array(
 		'label' => __( 'video_link', 'videolinktextdomain' ),
@@ -299,7 +299,16 @@ function create_videhelp_shortcode($atts) {
 //Add view videos 
 add_action('admin_menu', 'addcustomvideoview');
 function addcustomvideoview(){
-    add_menu_page('Video Help', 'Video Help', 'manage_options', 'customviewvideo', 'customvideoviewrenderfunc' );
+    add_menu_page(
+    	'Video Help', 
+    	'Video Help', 
+    	'manage_options', 
+    	'customviewvideo', 
+    	'customvideoviewrenderfunc',
+    	'dashicons-video-alt3',
+    	1
+
+    );
 }
 
 
@@ -337,26 +346,31 @@ function customvideoviewrenderfunc(){
 			'post_type' => 'video_help',
 			'title_li' => '',
 			'walker' => new Video_Help_Custom_Page_Walker(),
+			'link_after' => '<i class="far fa-play-circle"></i>'
 		);	
 	?>
 	
 	<div class="custom_toc_and_video_container">
-	
-		<div class="custom_half">
+		<h1 class="wp-heading-inline">Table of Contents</h1>
+		<div class="custom_half_chapter">
 			<div class="custom_video_help_container">
-				<strong>Table of Contents</strong>
+				
 				<ul>
 					<?php echo wp_list_pages($args_for_list_pages); ?>
 				</ul>
 			</div>
 		</div>
 		
-		<div class="custom_half custom_post_video_title_and_content">
+		<div class="custom_half_video custom_post_video_title_and_content">
 			<!-- just a spinner -->
 			<div class="lds-dual-ring"></div>
 			
 			<div class="custom_post_title"></div>
-			<div class="custom_post_video"></div>
+			<div class="custom_post_video">
+				<div class="embed-container">
+					
+				</div>
+			</div>
 			<div class="custom_post_content"></div>
 		</div>
 		
@@ -411,7 +425,9 @@ function customvideohelp_load_wp_admin_style($hook) {
         if($hook != 'toplevel_page_customviewvideo') {
 			return;
         }
-        wp_enqueue_style( 'custom_wp_admin_css', CUSTOM_VIDEO_PLUGIN_URI . 'css/style.css' );
+        wp_enqueue_style( 'custom_wp_admin_css', CUSTOM_VIDEO_PLUGIN_URI . 'style.css' );
+
+        wp_enqueue_style( 'font-awesome-free', '//use.fontawesome.com/releases/v5.2.0/css/all.css' );
 		
 		//load the JS and localize it 
 		wp_register_script( 'customvideojs',  CUSTOM_VIDEO_PLUGIN_URI . 'js/scripts.js' );
