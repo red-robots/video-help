@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Video Help
- * Plugin URI: http://codeable.io/
+ * Plugin URI: https://bellaworksweb.com/
  * Description: VH Admin
- * Version: 1.0.0 
- * Author: Orionk
+ * Version: 1.1.2 
+ * Author: Austin Crane
  */
 
 define( 'CUSTOM_VIDEO_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
