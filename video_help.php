@@ -16,12 +16,29 @@ define( 'CUSTOM_VIDEO_PLUGIN_URI', plugin_dir_url( __FILE__ ));
 
 // Register Custom Post Type video_link
 // Post Type Key: videolink
+
+//Add view videos 
+add_action('admin_menu', 'addcustomvideoview');
+function addcustomvideoview(){
+    add_menu_page(
+    	'Video Help', 
+    	'Video Help', 
+    	'manage_options', 
+    	'customviewvideo', 
+    	'customvideoviewrenderfunc',
+    	'dashicons-video-alt3',
+    	1
+
+    );
+}
+
+
 function create_videolink_cpt() {
 
 	$labels = array(
 		'name' => __( 'VH Admin', 'Post Type General Name', 'videolinktextdomain' ),
 		'singular_name' => __( 'VH Admin', 'Post Type Singular Name', 'videolinktextdomain' ),
-		'menu_name' => __( 'VH Admin', 'videolinktextdomain' ),
+		/*'menu_name' => __( 'VH Admin', 'videolinktextdomain' ),
 		'name_admin_bar' => __( 'VH Admin', 'videolinktextdomain' ),
 		'archives' => __( 'VH Admin Archives', 'videolinktextdomain' ),
 		'attributes' => __( 'VH Admin Attributes', 'videolinktextdomain' ),
@@ -45,7 +62,7 @@ function create_videolink_cpt() {
 		'uploaded_to_this_item' => __( 'Uploaded to this VH Admin', 'videolinktextdomain' ),
 		'items_list' => __( 'VH Admin list', 'videolinktextdomain' ),
 		'items_list_navigation' => __( 'VH Admin list navigation', 'videolinktextdomain' ),
-		'filter_items_list' => __( 'Filter VH Admin list', 'videolinktextdomain' ),
+		'filter_items_list' => __( 'Filter VH Admin list', 'videolinktextdomain' ),*/
 	);
 	$args = array(
 		'label' => __( 'video_link', 'videolinktextdomain' ),
@@ -54,7 +71,7 @@ function create_videolink_cpt() {
 		'menu_icon' => 'dashicons-admin-generic',
 		'supports' => array('title', 'page-attributes' ),
 		'taxonomies' => array('video_cats', ),
-		'public' => false,
+		'public' => true,
 		'show_ui' => true,
 		'show_in_menu' => true,
 		'menu_position' => 500,
@@ -71,9 +88,21 @@ function create_videolink_cpt() {
 	register_post_type( 'video_help', $args );
 
 }
-add_action( 'init', 'create_videolink_cpt', 0 );
+add_action( 'admin_menu', 'create_videolink_cpt', 0 );
 
 
+function videos_custom_admin_menu() { 
+    add_submenu_page('customviewvideo', 'Videos', 'Videos', 'manage_options', 'customviewvideo'); 
+    add_submenu_page( 'customviewvideo', 'VH Admin', 'VH Admin', 'manage_options', 'edit.php?post_type=video_help' );
+    add_submenu_page( 'customviewvideo', 'VH Admin New', 'New Video', 'manage_options', 'post-new.php?post_type=video_help' );
+    add_submenu_page( 'customviewvideo', 'Settings', 'Settings', 'manage_options', 'video-settings', 'custom_video_settings_callback' );   
+}  
+add_action('admin_menu', 'videos_custom_admin_menu'); 
+
+function custom_video_settings_callback()
+{
+	require_once ( CUSTOM_VIDEO_PLUGIN_DIR . 'templates/settings.php');
+}
 
 // Register Taxonomy Category
 // Taxonomy Key: category
@@ -113,9 +142,6 @@ function create_category_tax() {
 }
 
 */
-
-
-
 
 
 class videohelpmetabox {
@@ -172,7 +198,8 @@ class videohelpmetabox {
 			$label = '<label for="' . $meta_field['id'] . '">' . $meta_field['label'] . '</label>';
 			$meta_value = get_post_meta( $post->ID, $meta_field['id'], true );
 			if ( empty( $meta_value ) ) {
-				$meta_value = $meta_field['default']; }
+				$meta_value = $meta_field['default']; 
+			}
 			switch ( $meta_field['type'] ) {
 				case 'wysiwyg':
 					ob_start();
@@ -293,25 +320,6 @@ function create_videhelp_shortcode($atts) {
 }
 
 */
-
-
-
-//Add view videos 
-add_action('admin_menu', 'addcustomvideoview');
-function addcustomvideoview(){
-    add_menu_page(
-    	'Video Help', 
-    	'Video Help', 
-    	'manage_options', 
-    	'customviewvideo', 
-    	'customvideoviewrenderfunc',
-    	'dashicons-video-alt3',
-    	1
-
-    );
-}
-
-
 
 
 
