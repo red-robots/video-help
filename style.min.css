@@ -1659,7 +1659,7 @@ textarea{padding-left:3px;width:100%}
 100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}
 }@keyframes customspin{0%{-webkit-transform:rotate(0);transform:rotate(0)}
 100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}
-}.lds-dual-ring{display:none;width:64px;height:64px}
+}.lds-dual-ring{display:none;width:64px;height:64px;margin:0;position:absolute;left:45%;top:50%;-ms-transform:translateY(-50%);-webkit-transform:translateY(-50%);transform:translateY(-50%)}
 .lds-dual-ring:after{content:" ";display:block;width:46px;height:46px;margin:1px;border-radius:50%;border:5px solid #369;border-color:#369 transparent #369 transparent;-webkit-animation:lds-dual-ring 1.2s linear infinite;animation:lds-dual-ring 1.2s linear infinite}
 @-webkit-keyframes lds-dual-ring{0%{-webkit-transform:rotate(0);transform:rotate(0)}
 100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}
